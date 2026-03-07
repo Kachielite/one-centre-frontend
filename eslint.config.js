@@ -8,11 +8,11 @@ import prettierConfig from 'eslint-config-prettier'
 import reactPlugin from 'eslint-plugin-react'
 
 export default [
-  { ignores: ['dist', 'node_modules'] },
+  { ignores: ['dist', 'node_modules', 'src/core/components/ui', 'src/components/ui'] },
   js.configs.recommended,
   {
     files: ['**/*.{ts,tsx,js,jsx}'],
-    ignores: ['eslint.config.js', 'vite.config.ts'],
+    ignores: ['eslint.config.js', 'vite.config.ts', 'src/core/components/ui/**', 'src/components/ui/**'],
     languageOptions: {
       parser: tsParser,
       parserOptions: {

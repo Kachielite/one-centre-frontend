@@ -6,8 +6,10 @@ import type { IErrorResponseModel } from "@/core/types/app.model.ts"
 import { toast } from "sonner"
 import { AuthProviderEnum } from "@/feature/auth/types/auth.enum.ts"
 import type { CredentialResponse } from "@react-oauth/google"
+import { useNavigate } from "react-router-dom"
 
 const useSocialLogin = () => {
+  const navigate = useNavigate()
   const { setToken } = useAuthStore()
 
   const { isLoading: isSocialLoggingIn, mutateAsync } = useMutation(
@@ -22,6 +24,7 @@ const useSocialLogin = () => {
         const message = response.message || "Social login successful"
         setToken({ accessToken, refreshToken })
         toast.success(message)
+        navigate("/")
       },
       onError: (error: IErrorResponseModel) => {
         toast.error(error.message || "An error occurred during social login")

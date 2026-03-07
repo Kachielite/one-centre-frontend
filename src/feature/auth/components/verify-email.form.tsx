@@ -22,9 +22,9 @@ export function VerifyEmailForm({
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
         <CardHeader className="text-center">
-          <CardTitle className="text-xl">Verify your email address</CardTitle>
+          <CardTitle className="text-xl">Create an Account</CardTitle>
           <CardDescription className="text-balance">
-            We will send you a verification code to your email address
+            Enter your email to receive a verification code.
           </CardDescription>
         </CardHeader>
         <CardContent>

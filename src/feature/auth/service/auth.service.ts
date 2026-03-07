@@ -15,7 +15,7 @@ import type {
   IGeneralResponseModel,
   IGeneralResponseWithDataModel,
 } from "@/core/types/app.model.ts"
-import { mapAuthToken } from "@/feature/auth/mappers/auth.mapper.ts"
+import { mapAuthToken } from "@/feature/auth/types/mappers/auth.mapper.ts"
 
 const PATH = "/auth"
 const BASE_URL = ENV.BASE_URL

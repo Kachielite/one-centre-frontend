@@ -14,6 +14,7 @@ interface CustomInputProps<T extends FieldValues> {
   placeholder?: string
   required?: boolean
   disabled?: boolean
+  type?: "text" | "email" | "password" | "number"
 }
 
 function CustomTextInput<T extends FieldValues>({
@@ -23,6 +24,7 @@ function CustomTextInput<T extends FieldValues>({
   required,
   label,
   disabled,
+  type = "text",
 }: CustomInputProps<T>) {
   return (
     <Controller
@@ -39,6 +41,7 @@ function CustomTextInput<T extends FieldValues>({
             autoComplete="off"
             required={required}
             disabled={disabled}
+            type={type}
           />
           {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
         </Field>

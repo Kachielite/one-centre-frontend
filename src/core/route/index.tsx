@@ -9,6 +9,7 @@ import RegisterPage from "@/feature/auth/pages/register.page.tsx"
 import ForgetPasswordPage from "@/feature/auth/pages/forget-password.page.tsx"
 import VerifyEmailPage from "@/feature/auth/pages/verify-email.page.tsx"
 import VerifyOtpPage from "@/feature/auth/pages/verify-otp.page.tsx"
+import ResetPasswordPage from "@/feature/auth/pages/reset-password.page.tsx"
 
 export const router = createBrowserRouter([
   {
@@ -49,16 +50,11 @@ export const router = createBrowserRouter([
             element: <VerifyOtpPage />,
             loader: publicOnlyLoader,
           },
-          // {
-          //   path: "/verify-reset",
-          //   element: <VerifyResetPage />,
-          //   loader: publicOnlyLoader,
-          // },
-          // {
-          //   path: "/reset-password",
-          //   element: <ResetPasswordPage />,
-          //   loader: publicOnlyLoader,
-          // },
+          {
+            path: "/reset-password",
+            element: <ResetPasswordPage />,
+            loader: publicOnlyLoader,
+          },
         ],
       },
       {

@@ -9,13 +9,18 @@ import type { IErrorResponseModel } from "@/core/types/app.model.ts"
 import { toast } from "sonner"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
+import useAuthStore from "@/feature/auth/state/auth.state.ts"
+import { useNavigate } from "react-router-dom"
 
 const useResetPassword = () => {
+  const navigate = useNavigate()
+  const { verification, clearVerification } = useAuthStore()
+
   const resetPasswordForm = useForm<ResetPasswordSchema>({
     resolver: zodResolver(resetPasswordPayloadSchema),
     mode: "onBlur",
     defaultValues: {
-      email: "",
+      email: verification?.email || "",
       otp: "",
       newPassword: "",
       confirmPassword: "",
@@ -28,8 +33,11 @@ const useResetPassword = () => {
     },
     {
       onSuccess: (response) => {
+        clearVerification()
+        resetPasswordForm.reset()
         const message = response.message || "Password reset successful"
         toast.success(message)
+        navigate("/login")
       },
       onError: (error: IErrorResponseModel) => {
         toast.error(
@@ -46,6 +54,7 @@ const useResetPassword = () => {
   return {
     isResetting,
     resetPasswordHandler,
+    resetPasswordForm,
   }
 }
 

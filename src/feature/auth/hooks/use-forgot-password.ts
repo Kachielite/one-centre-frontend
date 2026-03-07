@@ -8,11 +8,15 @@ import type { IErrorResponseModel } from "@/core/types/app.model.ts"
 import { toast } from "sonner"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { useNavigate } from "react-router-dom"
+import useAuthStore from "@/feature/auth/state/auth.state.ts"
 
 const useForgotPassword = () => {
+  const navigate = useNavigate()
+  const { setVerification, verification } = useAuthStore()
   const forgetPasswordForm = useForm<VerifyEmailPayload>({
     defaultValues: {
-      email: "",
+      email: verification?.email || "",
     },
     mode: "onBlur",
     resolver: zodResolver(verifyEmailPayloadSchema),
@@ -25,8 +29,13 @@ const useForgotPassword = () => {
     },
     {
       onSuccess: (response) => {
+        setVerification({
+          email: forgetPasswordForm.getValues("email"),
+          otp: "",
+        })
         const message = response.message || "Password reset email sent"
         toast.success(message)
+        navigate("/reset-password")
       },
       onError: (error: IErrorResponseModel) => {
         toast.error(

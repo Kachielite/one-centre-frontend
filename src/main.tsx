@@ -5,6 +5,8 @@ import App from "./App.tsx"
 import { ThemeProvider } from "@/core/components/theme-provider.tsx"
 import { QueryClient, QueryClientProvider } from "react-query"
 import { Toaster } from "sonner"
+import { GoogleOAuthProvider } from "@react-oauth/google"
+import ENV from "@/core/constants/env.constant.ts"
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -16,10 +18,12 @@ const queryClient = new QueryClient({
 })
 
 createRoot(document.getElementById("root")!).render(
-  <ThemeProvider>
+  <GoogleOAuthProvider clientId={ENV.GOOGLE_CLIENT_ID}>
     <QueryClientProvider client={queryClient}>
-      <App />
-      <Toaster position="top-right" richColors />
+      <ThemeProvider>
+        <App />
+        <Toaster position="top-right" richColors />
+      </ThemeProvider>
     </QueryClientProvider>
-  </ThemeProvider>
+  </GoogleOAuthProvider>
 )

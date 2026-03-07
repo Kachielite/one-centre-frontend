@@ -1,10 +1,23 @@
 import { useMutation } from "react-query"
 import { AuthService } from "@/feature/auth/service/auth.service.ts"
-import type { VerifyEmailPayload } from "@/feature/auth/types/auth.payload.ts"
+import {
+  type VerifyEmailPayload,
+  verifyEmailPayloadSchema,
+} from "@/feature/auth/types/auth.payload.ts"
 import type { IErrorResponseModel } from "@/core/types/app.model.ts"
 import { toast } from "sonner"
+import { useForm } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
 
 const useForgotPassword = () => {
+  const forgetPasswordForm = useForm<VerifyEmailPayload>({
+    defaultValues: {
+      email: "",
+    },
+    mode: "onBlur",
+    resolver: zodResolver(verifyEmailPayloadSchema),
+  })
+
   const { isLoading: isRequesting, mutateAsync } = useMutation(
     "forgot-password",
     async (data: VerifyEmailPayload) => {
@@ -23,13 +36,14 @@ const useForgotPassword = () => {
     }
   )
 
-  const forgotPasswordHandler = async (payload: VerifyEmailPayload) => {
-    await mutateAsync(payload)
+  const forgotPasswordHandler = async () => {
+    await forgetPasswordForm.handleSubmit((data) => mutateAsync(data))()
   }
 
   return {
     isRequesting,
     forgotPasswordHandler,
+    forgetPasswordForm,
   }
 }
 

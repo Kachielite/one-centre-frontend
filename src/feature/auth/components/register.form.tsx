@@ -30,7 +30,12 @@ export function RegisterForm({ className, ...props }: ComponentProps<"div">) {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form onSubmit={registerHandler}>
+          <form
+            onSubmit={async (e) => {
+              e.preventDefault()
+              await registerHandler()
+            }}
+          >
             <FieldGroup>
               <Field>
                 <Button variant="outline" type="button">

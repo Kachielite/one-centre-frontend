@@ -6,6 +6,7 @@ import ErrorPage from "@/core/components/pages/error.page.tsx"
 import NotFoundPage from "@/core/components/pages/not-found.page.tsx"
 import LoginPage from "@/feature/auth/pages/login.page.tsx"
 import RegisterPage from "@/feature/auth/pages/register.page.tsx"
+import ForgetPasswordPage from "@/feature/auth/pages/forget-password.page.tsx"
 
 export const router = createBrowserRouter([
   {
@@ -31,11 +32,11 @@ export const router = createBrowserRouter([
             element: <RegisterPage />,
             loader: publicOnlyLoader,
           },
-          // {
-          //   path: "/forget-password",
-          //   element: <ForgetPasswordPage />,
-          //   loader: publicOnlyLoader,
-          // },
+          {
+            path: "/forget-password",
+            element: <ForgetPasswordPage />,
+            loader: publicOnlyLoader,
+          },
           // {
           //   path: "/verify-reset",
           //   element: <VerifyResetPage />,

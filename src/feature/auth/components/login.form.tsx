@@ -30,7 +30,12 @@ export function LoginForm({ className, ...props }: ComponentProps<"div">) {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form onSubmit={loginHandler}>
+          <form
+            onSubmit={async (e) => {
+              e.preventDefault()
+              await loginHandler()
+            }}
+          >
             <FieldGroup>
               <Field>
                 <Button variant="outline" type="button">

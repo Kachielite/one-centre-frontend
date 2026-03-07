@@ -1,5 +1,8 @@
 import { z } from "zod"
-import { OtpTypeEnum } from "@/feature/auth/types/auth.enum.ts"
+import {
+  AuthProviderEnum,
+  OtpTypeEnum,
+} from "@/feature/auth/types/auth.enum.ts"
 
 export const createUserPayloadSchema = z.object({
   email: z.email("Invalid email address"),
@@ -47,3 +50,10 @@ export const resetPasswordPayloadSchema = z
 
 export type ResetPasswordSchema = z.infer<typeof resetPasswordPayloadSchema>
 export type ResetPasswordPayload = Omit<ResetPasswordSchema, "confirmPassword">
+
+export const socialLoginPayloadSchema = z.object({
+  provider: z.enum(AuthProviderEnum),
+  idToken: z.string().min(1, "Token is required"),
+})
+
+export type SocialLoginPayload = z.infer<typeof socialLoginPayloadSchema>

@@ -4,6 +4,7 @@ import {
   type LoginUserPayload,
   loginUserPayloadSchema,
   type ResetPasswordPayload,
+  type SocialLoginPayload,
   type VerifyEmailPayload,
   type VerifyOtpPayload,
 } from "@/feature/auth/types/auth.payload.ts"
@@ -118,6 +119,24 @@ export const AuthService = {
       }
     } catch (err) {
       throw serviceErrorHandler(err as AxiosError, "AuthService.resetPassword")
+    }
+  },
+
+  socialLogin: async (
+    payload: SocialLoginPayload
+  ): Promise<IGeneralResponseWithDataModel<IAuthModel>> => {
+    try {
+      const response = await axios.post(
+        `${BASE_URL}${PATH}/social-login`,
+        payload
+      )
+      return {
+        success: response.data.success,
+        message: response.data.message,
+        data: mapAuthToken(response.data.data),
+      }
+    } catch (err) {
+      throw serviceErrorHandler(err as AxiosError, "AuthService.socialLogin")
     }
   },
 }

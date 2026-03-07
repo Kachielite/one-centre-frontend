@@ -16,7 +16,6 @@ const useAuthStore = create<AuthStore>()(
       token: null,
       setToken: (value: IAuthModel) => {
         set({ token: value })
-        // Sync with storage immediately for axios interceptor
         zustandStorage.setItem(ENV.STORAGE_KEY, JSON.stringify(value))
       },
       clearToken: () => {

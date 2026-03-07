@@ -5,6 +5,7 @@ import "./index.css"
 import App from "./App.tsx"
 import { ThemeProvider } from "@/core/components/theme-provider.tsx"
 import { QueryClient, QueryClientProvider } from "react-query"
+import { Toaster } from "sonner"
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -20,6 +21,7 @@ createRoot(document.getElementById("root")!).render(
     <ThemeProvider>
       <QueryClientProvider client={queryClient}>
         <App />
+        <Toaster />
       </QueryClientProvider>
     </ThemeProvider>
   </StrictMode>

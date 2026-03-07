@@ -13,13 +13,13 @@ import { useNavigate } from "react-router-dom"
 
 const useRegister = () => {
   const navigate = useNavigate()
-  const { setToken, clearVerification } = useAuthStore()
+  const { setToken, clearVerification, verification } = useAuthStore()
 
   const registrationForm = useForm<CreateUserPayload>({
     resolver: zodResolver(createUserPayloadSchema),
     mode: "onBlur",
     defaultValues: {
-      email: "",
+      email: verification?.email || "",
       password: "",
       name: "",
     },

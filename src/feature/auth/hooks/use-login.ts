@@ -7,9 +7,11 @@ import type { IErrorResponseModel } from "@/core/types/app.model.ts"
 import { toast } from "sonner"
 import type { LoginUserPayload } from "@/feature/auth/types/auth.payload.ts"
 import { loginUserPayloadSchema } from "@/feature/auth/types/auth.payload.ts"
+import { useNavigate } from "react-router-dom"
 
 const useLogin = () => {
-  const { setToken } = useAuthStore()
+  const navigate = useNavigate()
+  const { setToken, setVerification } = useAuthStore()
 
   const loginForm = useForm<LoginUserPayload>({
     resolver: zodResolver(loginUserPayloadSchema),
@@ -39,6 +41,16 @@ const useLogin = () => {
       },
       onError: (error: IErrorResponseModel) => {
         toast.error(error.message || "An error occurred during login")
+        if (
+          error.message ===
+          "Your email is not verified. A new OTP has been sent to your email."
+        ) {
+          setVerification({
+            email: loginForm.getValues("email"),
+            otp: "",
+          })
+          navigate("/verify-otp")
+        }
       },
     }
   )

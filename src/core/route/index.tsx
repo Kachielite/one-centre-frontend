@@ -7,6 +7,8 @@ import NotFoundPage from "@/core/components/pages/not-found.page.tsx"
 import LoginPage from "@/feature/auth/pages/login.page.tsx"
 import RegisterPage from "@/feature/auth/pages/register.page.tsx"
 import ForgetPasswordPage from "@/feature/auth/pages/forget-password.page.tsx"
+import VerifyEmailPage from "@/feature/auth/pages/verify-email.page.tsx"
+import VerifyOtpPage from "@/feature/auth/pages/verify-otp.page.tsx"
 
 export const router = createBrowserRouter([
   {
@@ -28,6 +30,11 @@ export const router = createBrowserRouter([
             loader: publicOnlyLoader,
           },
           {
+            path: "/verify-email",
+            element: <VerifyEmailPage />,
+            loader: publicOnlyLoader,
+          },
+          {
             path: "/register",
             element: <RegisterPage />,
             loader: publicOnlyLoader,
@@ -35,6 +42,11 @@ export const router = createBrowserRouter([
           {
             path: "/forget-password",
             element: <ForgetPasswordPage />,
+            loader: publicOnlyLoader,
+          },
+          {
+            path: "/verify-otp",
+            element: <VerifyOtpPage />,
             loader: publicOnlyLoader,
           },
           // {

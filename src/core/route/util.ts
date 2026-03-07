@@ -1,17 +1,15 @@
 import { redirect } from "react-router-dom"
-import ENV from "@/core/constants/env.constant.ts"
-import zustandStorage from "@/core/utils/zustand-storage.ts"
-import type { IAuthModel } from "@/feature/auth/types/auth.model.ts"
 
 export const authService = {
   isAuthenticated: (): boolean => {
     try {
-      const authData = zustandStorage.getItem(ENV.STORAGE_KEY)
+      const authData = window.localStorage.getItem("auth-token")
       if (!authData) {
         return false
       }
 
-      const accessToken = (authData as unknown as IAuthModel).accessToken
+      const parsed = JSON.parse(authData)
+      const accessToken = parsed?.state?.token?.accessToken
       return Boolean(accessToken)
     } catch {
       return false

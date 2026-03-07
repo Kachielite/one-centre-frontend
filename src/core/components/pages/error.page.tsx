@@ -18,8 +18,8 @@ function ErrorPage() {
     errorMessage = "An unexpected error occurred"
   }
   return (
-    <div className="flex h-screen w-screen flex-col items-center justify-center gap-4 bg-primary text-primary-foreground">
-      <h1 className="text-8xl font-black">{status}</h1>
+    <div className="flex h-screen w-screen flex-col items-center justify-center gap-8">
+      <h1 className="text-6xl font-black lg:text-[12rem]">{status}</h1>
       <p className="text-lg">An error occurred while loading the page</p>
       <p className="text-md text-muted-foreground">
         Details: {status}:{errorMessage}

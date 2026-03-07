@@ -9,13 +9,18 @@ import { toast } from "sonner"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { OtpTypeEnum } from "@/feature/auth/types/auth.enum.ts"
+import useAuthStore from "@/feature/auth/state/auth.state.ts"
+import { useNavigate } from "react-router-dom"
 
 const useVerifyOtp = () => {
+  const navigate = useNavigate()
+  const { verification } = useAuthStore()
+
   const verifyOtpForm = useForm<VerifyOtpPayload>({
     resolver: zodResolver(verifyOtpPayloadSchema),
     mode: "onBlur",
     defaultValues: {
-      email: "",
+      email: verification?.email || "",
       otp: "",
       type: OtpTypeEnum.VERIFY_EMAIL,
     },
@@ -30,6 +35,7 @@ const useVerifyOtp = () => {
       onSuccess: (response) => {
         const message = response.message || "OTP verified successfully"
         toast.success(message)
+        navigate("/register")
       },
       onError: (error: IErrorResponseModel) => {
         toast.error(error.message || "An error occurred while verifying OTP")

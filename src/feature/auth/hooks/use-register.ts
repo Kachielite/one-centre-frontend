@@ -9,9 +9,11 @@ import { useMutation } from "react-query"
 import { AuthService } from "@/feature/auth/service/auth.service.ts"
 import type { IErrorResponseModel } from "@/core/types/app.model.ts"
 import { toast } from "sonner"
+import { useNavigate } from "react-router-dom"
 
 const useRegister = () => {
-  const { setToken } = useAuthStore()
+  const navigate = useNavigate()
+  const { setToken, clearVerification } = useAuthStore()
 
   const registrationForm = useForm<CreateUserPayload>({
     resolver: zodResolver(createUserPayloadSchema),
@@ -38,6 +40,8 @@ const useRegister = () => {
           refreshToken,
         })
         registrationForm.reset()
+        clearVerification()
+        navigate("/")
         toast.success(message)
       },
       onError: (error: IErrorResponseModel) => {

@@ -4,23 +4,36 @@ import { createJSONStorage, persist } from "zustand/middleware"
 import zustandStorage from "@/core/utils/zustand-storage.ts"
 import ENV from "@/core/constants/env.constant.ts"
 
+type Verification = {
+  email: string
+  otp: string
+}
+
 type AuthStore = {
   token: IAuthModel | null
-  setToken: (value: IAuthModel) => void
+  verification: Verification | null
+  setToken: (value: IAuthModel | null) => void
   clearToken: () => void
+  setVerification: (value: Verification) => void
+  clearVerification: () => void
 }
 
 const useAuthStore = create<AuthStore>()(
   persist(
     (set) => ({
       token: null,
-      setToken: (value: IAuthModel) => {
+      verification: null,
+      setToken: (value: IAuthModel | null) => {
         set({ token: value })
-        zustandStorage.setItem(ENV.STORAGE_KEY, JSON.stringify(value))
       },
       clearToken: () => {
         set({ token: null })
-        zustandStorage.removeItem(ENV.STORAGE_KEY)
+      },
+      setVerification: (value: Verification) => {
+        set({ verification: value })
+      },
+      clearVerification: () => {
+        set({ verification: null })
       },
     }),
     {

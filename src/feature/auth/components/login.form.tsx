@@ -89,7 +89,7 @@ export function LoginForm({ className, ...props }: ComponentProps<"div">) {
                 </Button>
                 <FieldDescription className="text-center">
                   Don&apos;t have an account?{" "}
-                  <Link to="/register">Sign up</Link>
+                  <Link to="/verify-email">Sign up</Link>
                 </FieldDescription>
               </Field>
             </FieldGroup>

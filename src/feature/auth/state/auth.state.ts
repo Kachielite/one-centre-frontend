@@ -1,6 +1,6 @@
 import type { IAuthModel } from "@/feature/auth/types/auth.model.ts"
 import { create } from "zustand/react"
-import { createJSONStorage, persist } from "zustand/middleware/persist"
+import { createJSONStorage, persist } from "zustand/middleware"
 import zustandStorage from "@/core/utils/zustand-storage.ts"
 import ENV from "@/core/constants/env.constant.ts"
 

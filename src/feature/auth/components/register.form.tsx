@@ -16,6 +16,7 @@ import {
 import type { ComponentProps } from "react"
 import CustomTextInput from "@/core/components/custom-components/form/custom-text-input.tsx"
 import useRegister from "@/feature/auth/hooks/use-register.ts"
+import { Link } from "react-router-dom"
 
 export function RegisterForm({ className, ...props }: ComponentProps<"div">) {
   const { registrationForm, isRegistering, registerHandler } = useRegister()
@@ -81,7 +82,7 @@ export function RegisterForm({ className, ...props }: ComponentProps<"div">) {
                   {isRegistering ? "Creating..." : "Create Account"}
                 </Button>
                 <FieldDescription className="text-center">
-                  You have an account? <a href="#">Login</a>
+                  You have an account? <Link to="/login">Login</Link>
                 </FieldDescription>
               </Field>
             </FieldGroup>

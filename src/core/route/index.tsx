@@ -1,9 +1,11 @@
 import { createBrowserRouter } from "react-router-dom"
-import { protectedLoader } from "@/core/route/util.ts"
+import { protectedLoader, publicOnlyLoader } from "@/core/route/util.ts"
 import DashboardLayout from "@/core/components/layout/dashbooard.tsx"
 import AuthLayout from "@/core/components/layout/auth.tsx"
 import ErrorPage from "@/core/components/pages/error.page.tsx"
 import NotFoundPage from "@/core/components/pages/not-found.page.tsx"
+import LoginPage from "@/feature/auth/pages/login.page.tsx"
+import RegisterPage from "@/feature/auth/pages/register.page.tsx"
 
 export const router = createBrowserRouter([
   {
@@ -19,11 +21,16 @@ export const router = createBrowserRouter([
       {
         element: <AuthLayout />,
         children: [
-          // {
-          //   path: "/login",
-          //   element: <LoginPage />,
-          //   loader: publicOnlyLoader,
-          // },
+          {
+            path: "/login",
+            element: <LoginPage />,
+            loader: publicOnlyLoader,
+          },
+          {
+            path: "/register",
+            element: <RegisterPage />,
+            loader: publicOnlyLoader,
+          },
           // {
           //   path: "/forget-password",
           //   element: <ForgetPasswordPage />,

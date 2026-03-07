@@ -16,6 +16,7 @@ import {
 import type { ComponentProps } from "react"
 import useLogin from "@/feature/auth/hooks/use-login.ts"
 import CustomTextInput from "@/core/components/custom-components/form/custom-text-input.tsx"
+import { Link } from "react-router-dom"
 
 export function LoginForm({ className, ...props }: ComponentProps<"div">) {
   const { isLoggingIn, loginForm, loginHandler } = useLogin()
@@ -69,30 +70,27 @@ export function LoginForm({ className, ...props }: ComponentProps<"div">) {
                 disabled={isLoggingIn}
                 placeholder="********"
               />
-              <div className="flex items-center">
-                <a
-                  href="#"
-                  className="ml-auto text-sm underline-offset-4 hover:underline"
+              <FieldSeparator className="*:data-[slot=field-separator-content]:bg-card">
+                <Link
+                  to="/forget-password"
+                  className="ml-auto text-xs text-primary underline-offset-4 hover:underline"
                 >
                   Forgot your password?
-                </a>
-              </div>
+                </Link>
+              </FieldSeparator>
               <Field>
                 <Button disabled={isLoggingIn} type="submit">
                   {isLoggingIn ? "Logging in" : "Login"}
                 </Button>
                 <FieldDescription className="text-center">
-                  Don&apos;t have an account? <a href="#">Sign up</a>
+                  Don&apos;t have an account?{" "}
+                  <Link to="/register">Sign up</Link>
                 </FieldDescription>
               </Field>
             </FieldGroup>
           </form>
         </CardContent>
       </Card>
-      <FieldDescription className="px-6 text-center">
-        By clicking continue, you agree to our <a href="#">Terms of Service</a>{" "}
-        and <a href="#">Privacy Policy</a>.
-      </FieldDescription>
     </div>
   )
 }

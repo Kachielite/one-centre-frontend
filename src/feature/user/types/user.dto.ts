@@ -8,6 +8,6 @@ export interface IUserDTO {
   is_verified: boolean
   subscription_tier: SubscriptionTierEnum
   ai_credits_balance: number
-  createdAt: string
-  updatedAt: string
+  created_at: string
+  updated_at: string
 }

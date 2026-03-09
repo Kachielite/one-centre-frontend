@@ -8,9 +8,14 @@ function SecurityTab() {
   return (
     <div className="space-y-6">
       <div>
-        <h3 className="mb-4 text-sm font-medium text-foreground">
-          Security Settings
-        </h3>
+        <div>
+          <h3 className="mb-4 text-xl font-medium text-foreground">
+            Security Settings
+          </h3>
+          <p className="mb-6 text-sm text-muted-foreground">
+            Change your account&#39;s password and manage security settings
+          </p>
+        </div>
         <div className="space-y-4">
           <CustomTextInput
             id="old_password"

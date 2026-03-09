@@ -8,9 +8,14 @@ function ProfileTab() {
   return (
     <div className="space-y-6">
       <div>
-        <h3 className="mb-4 text-sm font-medium text-foreground">
-          Profile Information
-        </h3>
+        <div>
+          <h3 className="mb-4 text-xl font-medium text-foreground">
+            Profile Information
+          </h3>
+          <p className="mb-6 text-sm text-muted-foreground">
+            Update your account&#39;s profile information
+          </p>
+        </div>
         <div className="space-y-4">
           <CustomTextInput
             id="name"

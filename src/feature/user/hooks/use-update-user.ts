@@ -20,6 +20,7 @@ const useUpdateUser = () => {
       name: user?.name || "",
       email: user?.email || "",
       password: "",
+      old_password: "",
     },
     mode: "onBlur",
     resolver: zodResolver(updateUserPayloadSchema),

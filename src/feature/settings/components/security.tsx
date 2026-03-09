@@ -29,7 +29,7 @@ function SecurityTab() {
             formController={updateUserForm}
             label="New Password"
             type="password"
-            disabled
+            disabled={isUpdatingUser}
           />
         </div>
       </div>

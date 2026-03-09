@@ -1,9 +1,10 @@
 import { redirect } from "react-router-dom"
+import ENV from "@/core/constants/env.constant.ts"
 
 export const authService = {
   isAuthenticated: (): boolean => {
     try {
-      const authData = window.localStorage.getItem("auth-token")
+      const authData = window.localStorage.getItem(ENV.STORAGE_KEY)
       if (!authData) {
         return false
       }

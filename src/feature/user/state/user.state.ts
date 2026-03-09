@@ -22,7 +22,7 @@ const useUserStore = create<UserStore>()(
       },
     }),
     {
-      name: ENV.STORAGE_KEY,
+      name: ENV.USER_STORAGE_KEY,
       storage: createJSONStorage(() => zustandStorage),
     }
   )

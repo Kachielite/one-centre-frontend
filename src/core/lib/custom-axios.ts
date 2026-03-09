@@ -6,7 +6,7 @@ import { toast } from "sonner"
 
 function getToken(): string | null {
   try {
-    const raw = zustandStorage.getItem(ENV.STORAGE_KEY) as string | null
+    const raw = zustandStorage.getItem(ENV.AUTH_STORAGE_KEY) as string | null
     if (!raw) return null
 
     const parsed = JSON.parse(raw)
@@ -59,7 +59,7 @@ customAxios.interceptors.response.use(
       isRedirecting = true
 
       try {
-        zustandStorage.removeItem(ENV.STORAGE_KEY)
+        zustandStorage.removeItem(ENV.AUTH_STORAGE_KEY)
       } catch {
         // ignore storage errors
       }

@@ -37,7 +37,7 @@ const useAuthStore = create<AuthStore>()(
       },
     }),
     {
-      name: ENV.STORAGE_KEY,
+      name: ENV.AUTH_STORAGE_KEY,
       storage: createJSONStorage(() => zustandStorage),
     }
   )

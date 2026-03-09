@@ -9,12 +9,14 @@ import { useMutation } from "react-query"
 import { UserService } from "@/feature/user/service/user.service.ts"
 import type { IErrorResponseModel } from "@/core/types/app.model.ts"
 import { toast } from "sonner"
+import { useEffect } from "react"
 
 const useUpdateUser = () => {
   const { user, setUser } = useUserStore()
 
   const updateUserForm = useForm<UpdateUserPayload>({
     defaultValues: {
+      id: user?.id as number,
       name: user?.name || "",
       email: user?.email || "",
       password: "",
@@ -36,6 +38,7 @@ const useUpdateUser = () => {
           email: updatedUser.email,
           password: "",
         })
+        toast.success("User information updated successfully")
       },
       onError: (error: IErrorResponseModel) => {
         toast.error(
@@ -44,6 +47,15 @@ const useUpdateUser = () => {
       },
     }
   )
+
+  const { reset } = updateUserForm
+  useEffect(() => {
+    reset({
+      id: user?.id as number,
+      name: user?.name || "",
+      email: user?.email || "",
+    })
+  }, [reset, user])
 
   const updateUserHandler = async () => {
     await updateUserForm.handleSubmit((data) => mutateAsync(data))()

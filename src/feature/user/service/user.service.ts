@@ -3,6 +3,7 @@ import customAxios from "@/core/lib/custom-axios.ts"
 import { serviceErrorHandler } from "@/core/utils/helpers/error-handling.ts"
 import type { AxiosError } from "axios"
 import type { UpdateUserPayload } from "@/feature/user/types/user.payload.ts"
+import { mapUserDTOToUser } from "@/feature/user/types/mappers/user.mapper.ts"
 
 const PATH = "/users"
 
@@ -10,7 +11,7 @@ export const UserService = {
   getCurrentUser: async (): Promise<IUserModel> => {
     try {
       const response = await customAxios.get(`${PATH}/me`)
-      return response.data as IUserModel
+      return mapUserDTOToUser(response.data) as IUserModel
     } catch (err) {
       throw serviceErrorHandler(err as AxiosError, "UserService.getCurrentUser")
     }
@@ -34,7 +35,7 @@ export const UserService = {
         `${PATH}/${payload.id}`,
         requestBody
       )
-      return response.data as IUserModel
+      return mapUserDTOToUser(response.data) as IUserModel
     } catch (err) {
       throw serviceErrorHandler(
         err as AxiosError,

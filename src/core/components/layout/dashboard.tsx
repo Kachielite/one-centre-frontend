@@ -45,7 +45,7 @@ const DashboardLayout = () => {
                 <div className="flex items-center gap-1.5 rounded-full border border-border bg-card px-3 py-1.5">
                   <Zap className="h-3.5 w-3.5 text-primary" />
                   <span className="font-mono text-xs text-muted-foreground">
-                    {user?.aiCreditsBalance || 0} AI credits
+                    {(user?.aiCreditsBalance || 0).toLocaleString()} AI credits
                   </span>
                 </div>
               </div>

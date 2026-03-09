@@ -5,6 +5,9 @@ import { Save } from "lucide-react"
 
 function ProfileTab() {
   const { updateUserForm, updateUserHandler, isUpdatingUser } = useUpdateUser()
+
+  console.log("Form Errors:", updateUserForm.formState.errors)
+  console.log("Form Values:", updateUserForm.getValues())
   return (
     <div className="space-y-6">
       <div>
@@ -34,7 +37,7 @@ function ProfileTab() {
       <Button
         size="sm"
         className="gap-1.5 bg-primary text-primary-foreground hover:bg-primary/90"
-        onClick={updateUserHandler}
+        onClick={async () => await updateUserHandler()}
         disabled={isUpdatingUser}
       >
         <Save className="h-3.5 w-3.5" />

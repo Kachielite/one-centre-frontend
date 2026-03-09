@@ -11,6 +11,7 @@ import VerifyEmailPage from "@/feature/auth/pages/verify-email.page.tsx"
 import VerifyOtpPage from "@/feature/auth/pages/verify-otp.page.tsx"
 import ResetPasswordPage from "@/feature/auth/pages/reset-password.page.tsx"
 import CommandPage from "@/feature/command/pages"
+import QueuePage from "@/feature/queue/pages/queue.page.tsx"
 
 export const router = createBrowserRouter([
   {
@@ -25,6 +26,10 @@ export const router = createBrowserRouter([
           {
             path: "/",
             element: <CommandPage />,
+          },
+          {
+            path: "/queue",
+            element: <QueuePage />,
           },
         ],
       },

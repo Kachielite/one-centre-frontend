@@ -8,9 +8,16 @@ import {
 import { AppSidebar } from "@/core/components/layout/app-side-bar.tsx"
 import { RightPanel } from "@/core/components/layout/right-panel.tsx"
 import { useTheme } from "@/core/components/theme-provider.tsx"
+import useGetCurrentUser from "@/feature/user/hooks/use-get-current-user.ts"
+import { GlobalLoader } from "@/core/components/custom-components/loaders/global-loaders.tsx"
 
 const DashboardLayout = () => {
   const { theme, toggle } = useTheme()
+  const { isLoadingUser } = useGetCurrentUser()
+
+  if (isLoadingUser) {
+    return <GlobalLoader />
+  }
 
   return (
     <SidebarProvider>

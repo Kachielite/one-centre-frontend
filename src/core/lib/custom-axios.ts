@@ -2,6 +2,7 @@ import type { AxiosRequestHeaders, InternalAxiosRequestConfig } from "axios"
 import axios from "axios"
 import ENV from "@/core/constants/env.constant.ts"
 import zustandStorage from "@/core/utils/zustand-storage.ts"
+import { toast } from "sonner"
 
 function getToken(): string | null {
   try {
@@ -54,6 +55,7 @@ customAxios.interceptors.response.use(
       !isRedirecting &&
       window.location.pathname !== "/login"
     ) {
+      toast.info("Session expired. Redirecting to login...")
       isRedirecting = true
 
       try {

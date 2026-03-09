@@ -1,12 +1,12 @@
 import { SubscriptionTierEnum } from "@/feature/subscription/types/subscription.enum.ts"
 
-export interface IUserDTO {
-  id: number
+export interface IUserModel {
+  id: string
   name: string
   email: string
-  is_active: boolean
-  is_verified: boolean
-  subscription_tier: SubscriptionTierEnum
+  isActive: boolean
+  isVerified: boolean
+  subscriptionTier: SubscriptionTierEnum
   ai_credits_balance: number
   createdAt: string
   updatedAt: string

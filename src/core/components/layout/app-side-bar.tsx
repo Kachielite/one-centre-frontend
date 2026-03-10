@@ -20,8 +20,6 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/core/components/ui/sidebar.tsx"
-
-import { toast } from "sonner"
 import { forwardRef } from "react"
 import { cn } from "@/core/lib/utils.ts"
 import {
@@ -30,6 +28,7 @@ import {
   useLocation,
 } from "react-router-dom"
 import OneCentreLogo from "@/core/components/custom-components/logo.tsx"
+import useAuthStore from "@/feature/auth/state/auth.state.ts"
 
 const mainItems = [
   { title: "Command", url: "/", icon: Command },
@@ -72,14 +71,11 @@ const NavLink = forwardRef<HTMLAnchorElement, NavLinkCompatProps>(
 NavLink.displayName = "NavLink"
 
 export function AppSidebar() {
+  const { setShowLogoutConfirmation } = useAuthStore()
   const { state } = useSidebar()
   const collapsed = state === "collapsed"
   const location = useLocation()
   const isActive = (path: string) => location.pathname === path
-
-  const handleLogout = () => {
-    toast.success("You've been signed out successfully.")
-  }
 
   return (
     <Sidebar collapsible="icon" className="border-r border-border">
@@ -149,7 +145,7 @@ export function AppSidebar() {
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton
-              onClick={handleLogout}
+              onClick={() => setShowLogoutConfirmation(true)}
               className="text-muted-foreground hover:bg-destructive/10 hover:text-destructive"
             >
               <LogOut className="mr-2 h-4 w-4" />

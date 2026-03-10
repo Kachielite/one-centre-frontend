@@ -11,6 +11,7 @@ import { useTheme } from "@/core/components/theme-provider.tsx"
 import useGetCurrentUser from "@/feature/user/hooks/use-get-current-user.ts"
 import { GlobalLoader } from "@/core/components/custom-components/loaders/global-loaders.tsx"
 import useUserStore from "@/feature/user/state/user.state.ts"
+import { LogoutAlertDialogue } from "@/feature/auth/components/logout-alert.tsx"
 
 const DashboardLayout = () => {
   const { theme, toggle } = useTheme()
@@ -57,6 +58,7 @@ const DashboardLayout = () => {
           <RightPanel />
         </div>
       </div>
+      <LogoutAlertDialogue />
     </SidebarProvider>
   )
 }

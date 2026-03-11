@@ -8,9 +8,19 @@ import {
 import { AppSidebar } from "@/core/components/layout/app-side-bar.tsx"
 import { RightPanel } from "@/core/components/layout/right-panel.tsx"
 import { useTheme } from "@/core/components/theme-provider.tsx"
+import useGetCurrentUser from "@/feature/user/hooks/use-get-current-user.ts"
+import { GlobalLoader } from "@/core/components/custom-components/loaders/global-loaders.tsx"
+import useUserStore from "@/feature/user/state/user.state.ts"
+import { LogoutAlertDialogue } from "@/feature/auth/components/logout-alert.tsx"
 
 const DashboardLayout = () => {
   const { theme, toggle } = useTheme()
+  const { user } = useUserStore()
+  const { isLoadingUser } = useGetCurrentUser()
+
+  if (isLoadingUser) {
+    return <GlobalLoader />
+  }
 
   return (
     <SidebarProvider>
@@ -36,7 +46,7 @@ const DashboardLayout = () => {
                 <div className="flex items-center gap-1.5 rounded-full border border-border bg-card px-3 py-1.5">
                   <Zap className="h-3.5 w-3.5 text-primary" />
                   <span className="font-mono text-xs text-muted-foreground">
-                    38 AI credits
+                    {(user?.aiCreditsBalance || 0).toLocaleString()} AI credits
                   </span>
                 </div>
               </div>
@@ -48,6 +58,7 @@ const DashboardLayout = () => {
           <RightPanel />
         </div>
       </div>
+      <LogoutAlertDialogue />
     </SidebarProvider>
   )
 }

@@ -16,6 +16,8 @@ type AuthStore = {
   clearToken: () => void
   setVerification: (value: Verification) => void
   clearVerification: () => void
+  showLogoutConfirmation: boolean
+  setShowLogoutConfirmation: (value: boolean) => void
 }
 
 const useAuthStore = create<AuthStore>()(
@@ -28,6 +30,9 @@ const useAuthStore = create<AuthStore>()(
       },
       clearToken: () => {
         set({ token: null })
+        localStorage.removeItem(ENV.AUTH_STORAGE_KEY)
+        localStorage.removeItem(ENV.USER_STORAGE_KEY)
+        window.location.replace("/login")
       },
       setVerification: (value: Verification) => {
         set({ verification: value })
@@ -35,10 +40,18 @@ const useAuthStore = create<AuthStore>()(
       clearVerification: () => {
         set({ verification: null })
       },
+      showLogoutConfirmation: false,
+      setShowLogoutConfirmation: (value: boolean) => {
+        set({ showLogoutConfirmation: value })
+      },
     }),
     {
-      name: ENV.STORAGE_KEY,
+      name: ENV.AUTH_STORAGE_KEY,
       storage: createJSONStorage(() => zustandStorage),
+      partialize: (state) => ({
+        token: state.token,
+        verification: state.verification,
+      }),
     }
   )
 )

@@ -1,17 +1,29 @@
-import { Button } from "@/core/components/ui/button.tsx"
+import { useLocation } from "react-router-dom"
+import { useEffect } from "react"
 
-function NotFoundPage() {
+const NotFound = () => {
+  const location = useLocation()
+
+  useEffect(() => {
+    console.error(
+      "404 Error: User attempted to access non-existent route:",
+      location.pathname
+    )
+  }, [location.pathname])
+
   return (
-    <div className="flex h-screen w-screen flex-col items-center justify-center gap-8">
-      <h1 className="text-6xl font-black lg:text-[12rem]">404</h1>
-      <p className="text-lg">
-        Oops! The page you&#39;re looking for doesn&#39;t exist.
-      </p>
-      <Button>
-        <a href="/">Go back to Home</a>
-      </Button>
+    <div className="flex min-h-screen items-center justify-center bg-muted">
+      <div className="text-center">
+        <h1 className="mb-4 text-4xl font-bold">404</h1>
+        <p className="mb-4 text-xl text-muted-foreground">
+          Oops! Page not found
+        </p>
+        <a href="/" className="text-primary underline hover:text-primary/90">
+          Return to Home
+        </a>
+      </div>
     </div>
   )
 }
 
-export default NotFoundPage
+export default NotFound

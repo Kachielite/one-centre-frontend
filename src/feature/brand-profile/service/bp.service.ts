@@ -5,14 +5,23 @@ import type {
   BrandProfileCreationDTO,
   BrandProfileUpdateDTO,
 } from "@/feature/brand-profile/types/bp.payload.ts"
+import type { IBrandProfileModel } from "@/feature/brand-profile/types/bp.model.ts"
+import type { IGeneralResponseWithDataModel } from "@/core/types/app.model.ts"
+import { mapBrandProfileDTOToModel } from "@/feature/brand-profile/types/mappers/bp.mapper.ts"
 
 const PATH = "/brand-profiles"
 
 export const BrandProfileService = {
-  getBrandProfile: async () => {
+  getBrandProfile: async (): Promise<
+    IGeneralResponseWithDataModel<IBrandProfileModel>
+  > => {
     try {
       const response = await customAxios.get(`${PATH}`)
-      return response.data
+      return {
+        success: response.data.success,
+        message: response.data.message,
+        data: mapBrandProfileDTOToModel(response.data.data),
+      }
     } catch (err) {
       throw serviceErrorHandler(
         err as AxiosError,
@@ -21,10 +30,16 @@ export const BrandProfileService = {
     }
   },
 
-  createBrandProfile: async (payload: BrandProfileCreationDTO) => {
+  createBrandProfile: async (
+    payload: BrandProfileCreationDTO
+  ): Promise<IGeneralResponseWithDataModel<IBrandProfileModel>> => {
     try {
       const response = await customAxios.post(`${PATH}`, payload)
-      return response.data
+      return {
+        success: response.data.success,
+        message: response.data.message,
+        data: mapBrandProfileDTOToModel(response.data.data),
+      }
     } catch (err) {
       throw serviceErrorHandler(
         err as AxiosError,
@@ -33,10 +48,16 @@ export const BrandProfileService = {
     }
   },
 
-  updateBrandProfile: async (payload: BrandProfileUpdateDTO) => {
+  updateBrandProfile: async (
+    payload: BrandProfileUpdateDTO
+  ): Promise<IGeneralResponseWithDataModel<IBrandProfileModel>> => {
     try {
       const response = await customAxios.put(`${PATH}`, payload)
-      return response.data
+      return {
+        success: response.data.success,
+        message: response.data.message,
+        data: mapBrandProfileDTOToModel(response.data.data),
+      }
     } catch (err) {
       throw serviceErrorHandler(
         err as AxiosError,

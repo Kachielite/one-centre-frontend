@@ -6,7 +6,6 @@ import {
   Link2,
   LogOut,
   Settings,
-  User,
 } from "lucide-react"
 import {
   Sidebar,
@@ -38,7 +37,6 @@ const mainItems = [
 ]
 
 const workspaceItems = [
-  { title: "Brand Profiles", url: "/brand-profiles", icon: User },
   { title: "Accounts", url: "/accounts", icon: Link2 },
   { title: "Settings", url: "/settings", icon: Settings },
 ]

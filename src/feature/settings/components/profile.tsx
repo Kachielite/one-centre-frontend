@@ -5,9 +5,6 @@ import { Save } from "lucide-react"
 
 function ProfileTab() {
   const { updateUserForm, updateUserHandler, isUpdatingUser } = useUpdateUser()
-
-  console.log("Form Errors:", updateUserForm.formState.errors)
-  console.log("Form Values:", updateUserForm.getValues())
   return (
     <div className="space-y-6">
       <div>

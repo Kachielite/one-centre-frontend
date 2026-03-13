@@ -33,7 +33,7 @@ function CustomTextAreaInput<T extends FieldValues>({
   disabled,
   rows = 6,
   maxLength = -1,
-  shouldShowCharacterCount = true,
+  shouldShowCharacterCount = false,
 }: CustomTextAreaInputProps<T>) {
   return (
     <Controller
@@ -48,7 +48,7 @@ function CustomTextAreaInput<T extends FieldValues>({
               id={id}
               placeholder={placeholder}
               rows={rows}
-              className="min-h-24 resize-none"
+              className="max-h-96 min-h-24 resize-none"
               aria-invalid={fieldState.invalid}
               required={required}
               disabled={disabled}

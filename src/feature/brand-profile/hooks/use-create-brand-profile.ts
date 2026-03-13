@@ -48,6 +48,9 @@ const useCreateBrandProfile = () => {
     await brandProfileCreationForm.handleSubmit((data) => mutateAsync(data))()
   }
 
+  console.log("Form Errors:", brandProfileCreationForm.formState.errors)
+  console.log("Form Values:", brandProfileCreationForm.getValues())
+
   return {
     brandProfileCreationForm,
     isCreatingBrandProfile,

@@ -15,8 +15,8 @@ export const BrandProfileSchema = z.object({
       z.boolean(),
     ])
     .nullable(),
-  website_url: z.url("Invalid URL format").nullable(),
-  logo: z.file().nullable(),
+  website_url: z.url("Invalid URL format").nullable().optional(),
+  logo: z.file().nullable().optional(),
 })
 export type BrandProfileCreationDTO = z.infer<typeof BrandProfileSchema>
 

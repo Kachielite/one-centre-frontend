@@ -8,9 +8,9 @@ import { Card, CardContent, CardHeader } from "@/core/components/ui/card.tsx"
 import { Button } from "@/core/components/ui/button.tsx"
 import { ScrollArea } from "@/core/components/ui/scroll-area.tsx"
 
-const TOTAL_STEPS = 5
+const TOTAL_STEPS = 6
 
-export function CreateVoiceFlow() {
+export function BrandProfileOnboarding() {
   const {
     isCreatingBrandProfile,
     brandProfileCreationForm,
@@ -30,16 +30,14 @@ export function CreateVoiceFlow() {
   }
 
   const canProceed = () => {
-    const data = brandProfileCreationForm.getValues()
+    const name = brandProfileCreationForm.watch("name")
+    const bio_context = brandProfileCreationForm.watch("bio_context")
+    const tone_guidelines = brandProfileCreationForm.watch("tone_guidelines")
 
-    if (step === 1) return data.name.trim().length >= 10
-    if (step === 2) return data.bio_context.length >= 1
-    if (step === 3) return (data.tone_guidelines as string).length >= 1
+    if (step === 1) return name.trim().length >= 1
+    if (step === 2) return bio_context.length >= 1
+    if (step === 3) return (tone_guidelines as string).length >= 1
     return true
-  }
-
-  const handleComplete = async () => {
-    await createBrandProfileHandler()
   }
 
   const variants = {
@@ -51,7 +49,7 @@ export function CreateVoiceFlow() {
   if (!open) return null
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-background/95 backdrop-blur-sm">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-background/20 backdrop-blur-sm">
       {/* Progress */}
       <div className="absolute top-6 left-1/2 flex -translate-x-1/2 gap-1.5">
         {Array.from({ length: TOTAL_STEPS }).map((_, i) => (
@@ -87,7 +85,7 @@ export function CreateVoiceFlow() {
                   </h2>
                 </CardHeader>
                 <CardContent>
-                  <p className="mb-8 text-sm text-muted-foreground">
+                  <p className="text-lg leading-8 text-muted-foreground">
                     This is a quick setup to create a brand profile. It helps
                     the AI understand your brand&#39;s voice and vibe so it can
                     create posts that sound like you. You can always edit these
@@ -116,7 +114,7 @@ export function CreateVoiceFlow() {
                   <h2 className="mb-2 text-2xl font-semibold text-foreground">
                     What do you call your brand
                   </h2>
-                  <p className="mb-8 text-sm text-muted-foreground">
+                  <p className="text-lg text-muted-foreground">
                     This is the name that the AI will use when it refers to your
                     brand in posts.
                   </p>
@@ -157,7 +155,7 @@ export function CreateVoiceFlow() {
                   <h2 className="mb-2 text-2xl font-semibold text-foreground">
                     Tell us about your brand.
                   </h2>
-                  <p className="mb-8 text-sm text-muted-foreground">
+                  <p className="text-lg text-muted-foreground">
                     This helps the AI understand your brand and what values it
                     stands for. The AI will use this to create posts that align
                     with your brand&#39;s identity and resonate with your
@@ -168,6 +166,7 @@ export function CreateVoiceFlow() {
                   <CustomTextAreaInput
                     formController={brandProfileCreationForm}
                     id="bio_context"
+                    rows={7}
                   />
                 </CardContent>
               </Card>
@@ -193,7 +192,7 @@ export function CreateVoiceFlow() {
                   <h2 className="mb-2 text-2xl font-semibold text-foreground">
                     Tell us about your brand&#39;s tone guidelines
                   </h2>
-                  <p className="mb-8 text-sm text-muted-foreground">
+                  <p className="text-lg text-muted-foreground">
                     Describe your brand&#39;s vibe and tone guidelines. This
                     helps the AI understand your brand&#39;s personality and
                     create posts that sound like you. Be specific about the
@@ -205,6 +204,7 @@ export function CreateVoiceFlow() {
                   <CustomTextAreaInput
                     formController={brandProfileCreationForm}
                     id="tone_guidelines"
+                    rows={12}
                   />
                 </CardContent>
               </Card>
@@ -257,7 +257,7 @@ export function CreateVoiceFlow() {
               exit="exit"
               transition={{ duration: 0.25, ease: "easeOut" }}
             >
-              <Card>
+              <Card className="overflow-hidden">
                 <CardHeader>
                   <p className="mb-3 font-mono text-xs tracking-widest text-primary uppercase">
                     Step 6 of {TOTAL_STEPS}
@@ -265,13 +265,13 @@ export function CreateVoiceFlow() {
                   <h2 className="mb-2 text-2xl font-semibold text-foreground">
                     Review your brand profile information
                   </h2>
-                  <p className="mb-8 text-sm text-muted-foreground">
+                  <p className="text-lg text-muted-foreground">
                     Look good? Hit create and start posting with it.
                   </p>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="max-h-100 bg-card p-5">
                   <ScrollArea>
-                    <div className="space-y-4 rounded-xl border border-border bg-card p-5">
+                    <div className="max-h-100 space-y-4">
                       <div>
                         <p className="mb-1 font-mono text-[10px] tracking-wider text-muted-foreground uppercase">
                           Name
@@ -321,7 +321,7 @@ export function CreateVoiceFlow() {
         {/* Navigation */}
         <div className="mt-10 flex items-center justify-between">
           <div>
-            {step > 0 && (
+            {step >= 2 && (
               <Button
                 variant="ghost"
                 onClick={prev}
@@ -345,7 +345,7 @@ export function CreateVoiceFlow() {
             ) : (
               <Button
                 disabled={isCreatingBrandProfile}
-                onClick={handleComplete}
+                onClick={async () => await createBrandProfileHandler()}
                 className="glow-primary gap-1.5 bg-primary hover:bg-primary/90"
               >
                 <Sparkles className="h-4 w-4" />

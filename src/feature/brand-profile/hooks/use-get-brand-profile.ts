@@ -7,6 +7,8 @@ import useAuthStore from "@/feature/auth/state/auth.state.ts"
 
 const useGetBrandProfile = () => {
   const { token } = useAuthStore()
+  const { setShowBrandProfileOnboarding, showBrandProfileOnboarding } =
+    useBrandProfileStore()
   const { setBrandProfile } = useBrandProfileStore()
 
   const { isLoading: isLoadingBrandProfile } = useQuery(
@@ -15,11 +17,20 @@ const useGetBrandProfile = () => {
       return BrandProfileService.getBrandProfile()
     },
     {
-      enabled: !!token, // Only fetch if token exists
+      // Only fetch if token exists and onboarding is not already shown
+      enabled: !!token && !showBrandProfileOnboarding,
       onSuccess: (data) => {
-        setBrandProfile(data)
+        setBrandProfile(data.data)
       },
       onError: (error: IErrorResponseModel) => {
+        if (
+          error.message ===
+          "Unable to find a brand profile for your account. Please create one to get started."
+        ) {
+          setBrandProfile(null)
+          setShowBrandProfileOnboarding(true)
+          return
+        }
         toast.error(
           error.message || "An error occurred while fetching brand profile data"
         )

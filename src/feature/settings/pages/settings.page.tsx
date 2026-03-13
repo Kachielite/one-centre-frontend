@@ -1,13 +1,15 @@
-import { ShieldEllipsisIcon, User } from "lucide-react"
+import { Building2, ShieldEllipsisIcon, User } from "lucide-react"
 import { type ElementType, useState } from "react"
 import ProfileTab from "@/feature/settings/components/profile.tsx"
 import SecurityTab from "@/feature/settings/components/security.tsx"
+import BrandProfileTab from "@/feature/settings/components/brand-profile.tsx"
 
-type Tab = "profile" | "security"
+type Tab = "profile" | "security" | "brand-profile"
 
 const tabs: { key: Tab; label: string; icon: ElementType }[] = [
   { key: "profile", label: "Profile", icon: User },
   { key: "security", label: "Security", icon: ShieldEllipsisIcon },
+  { key: "brand-profile", label: "Brand Profile", icon: Building2 },
 ]
 
 function SettingsPage() {
@@ -63,6 +65,7 @@ function SettingsPage() {
         <div className="min-w-0 flex-1 rounded-lg border bg-card p-6">
           {activeTab === "profile" && <ProfileTab />}
           {activeTab === "security" && <SecurityTab />}
+          {activeTab === "brand-profile" && <BrandProfileTab />}
         </div>
       </div>
     </div>

@@ -31,10 +31,17 @@ const useUpdateBrandProfile = () => {
       return BrandProfileService.updateBrandProfile(data)
     },
     {
-      onSuccess: (res) => {
+      onSuccess: async (res) => {
+        const { data } = res
         setBrandProfile(res.data)
-        brandProfileUpdateForm.reset()
+        brandProfileUpdateForm.reset({
+          name: data?.name,
+          bio_context: data?.bioContext,
+          tone_guidelines: data?.toneGuidelines,
+          website_url: data?.websiteUrl,
+        })
         setShowBrandProfileOnboarding(false)
+        toast.success("Brand profile updated successfully")
       },
       onError: (error: IErrorResponseModel) => {
         toast.error(

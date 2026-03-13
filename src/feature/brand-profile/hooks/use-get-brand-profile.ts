@@ -20,6 +20,7 @@ const useGetBrandProfile = () => {
       // Only fetch if token exists and onboarding is not already shown
       enabled: !!token && !showBrandProfileOnboarding,
       onSuccess: (data) => {
+        setShowBrandProfileOnboarding(false)
         setBrandProfile(data.data)
       },
       onError: (error: IErrorResponseModel) => {

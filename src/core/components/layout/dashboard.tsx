@@ -12,13 +12,19 @@ import useGetCurrentUser from "@/feature/user/hooks/use-get-current-user.ts"
 import { GlobalLoader } from "@/core/components/custom-components/loaders/global-loaders.tsx"
 import useUserStore from "@/feature/user/state/user.state.ts"
 import { LogoutAlertDialogue } from "@/feature/auth/components/logout-alert.tsx"
+import useGetBrandProfile from "@/feature/brand-profile/hooks/use-get-brand-profile.ts"
+import { BrandProfileOnboarding } from "@/feature/brand-profile/components/create-brand-profile.tsx"
+import { Activity } from "react"
+import useBrandProfileStore from "@/feature/brand-profile/state/bp.state.ts"
 
 const DashboardLayout = () => {
   const { theme, toggle } = useTheme()
   const { user } = useUserStore()
+  const { showBrandProfileOnboarding } = useBrandProfileStore()
   const { isLoadingUser } = useGetCurrentUser()
+  const { isLoadingBrandProfile } = useGetBrandProfile()
 
-  if (isLoadingUser) {
+  if (isLoadingUser || isLoadingBrandProfile) {
     return <GlobalLoader />
   }
 
@@ -59,6 +65,9 @@ const DashboardLayout = () => {
         </div>
       </div>
       <LogoutAlertDialogue />
+      <Activity mode={showBrandProfileOnboarding ? "visible" : "hidden"}>
+        <BrandProfileOnboarding />
+      </Activity>
     </SidebarProvider>
   )
 }
